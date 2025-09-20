@@ -22,7 +22,7 @@ def test_dry_run_bson_to_mongo(mock_bson_file: Path, mock_mongo_connector: Any) 
     result = runner.invoke(
         datahood_app,
         [
-            "export",
+            "transfer",
             "bson-to-mongo",
             str(mock_bson_file),
             "--dest-uri",
@@ -48,7 +48,7 @@ def test_dry_run_mongo_to_bson(monkeypatch: Any, tmp_path: Path) -> None:
     async methods/async generator for compatibility with the application code.
     """
 
-    class FakeSource:
+    class FakeSourceConnector:
         def __init__(self, connection_uri: str, database: str | None = None) -> None:
             self._data = [{"_id": 1}, {"_id": 2}]
 
@@ -65,16 +65,22 @@ def test_dry_run_mongo_to_bson(monkeypatch: Any, tmp_path: Path) -> None:
 
             return _gen()
 
-    # Patch only the MongoDBConnector class used by the CLI export command
-    monkeypatch.setattr("datahood.connectors.mongodb.MongoDBConnector", FakeSource)
+    class FakeExporter:
+        def __init__(self, connection_uri: str, database: str | None = None) -> None:
+            self.source_connector = FakeSourceConnector(connection_uri, database)
+
+    # Patch the exporter class used in the CLI
+    monkeypatch.setattr("datahood.cli.export.MongoDBExporter", FakeExporter)
 
     result = runner.invoke(
         datahood_app,
         [
-            "export",
+            "transfer",
             "mongo-to-bson",
             "--source-uri",
             "mongodb://localhost:27017/",
+            "--source-database",
+            "testdb",
             "--source-collection",
             "coll",
             str(tmp_path / "out.bson"),
