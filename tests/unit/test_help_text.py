@@ -22,10 +22,6 @@ class TestCLICommands:
         assert CLICommands.SCHEMA_FROM_MONGO
         assert CLICommands.SCHEMA_FROM_BSON
 
-    def test_import_commands_not_empty(self):
-        """Test that import command constants are not empty."""
-        assert CLICommands.IMPORT_BSON_SIMPLE
-
     def test_commands_start_with_dh(self):
         """Test that all CLI commands start with 'dh'."""
         commands = [
@@ -33,7 +29,6 @@ class TestCLICommands:
             CLICommands.TRANSFER_BSON_TO_MONGO,
             CLICommands.SCHEMA_FROM_MONGO,
             CLICommands.SCHEMA_FROM_BSON,
-            CLICommands.IMPORT_BSON_SIMPLE,
         ]
         for command in commands:
             assert command.startswith("dh "), (
@@ -69,7 +64,7 @@ class TestExampleCategories:
 
     def test_enum_values(self):
         """Test that enum has expected values."""
-        expected_values = {"main", "transfer", "schema", "import"}
+        expected_values = {"main", "transfer", "schema"}
         actual_values = {category.value for category in ExampleCategories}
         assert actual_values == expected_values
 
@@ -78,7 +73,6 @@ class TestExampleCategories:
         assert hasattr(ExampleCategories, "MAIN")
         assert hasattr(ExampleCategories, "TRANSFER")
         assert hasattr(ExampleCategories, "SCHEMA")
-        assert hasattr(ExampleCategories, "IMPORT")
 
 
 class TestHelperFunctions:
