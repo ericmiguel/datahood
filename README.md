@@ -1,5 +1,13 @@
 # Datahood
 
+[![PyPI version](https://badge.fury.io/py/datahood.svg)](https://badge.fury.io/py/datahood)
+[![Python Support](https://img.shields.io/pypi/pyversions/datahood.svg)](https://pypi.org/project/datahood/)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![CI](https://github.com/ericmiguel/datahood/actions/workflows/ci.yaml/badge.svg)](https://github.com/ericmiguel/datahood/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/gh/ericmiguel/datahood/branch/main/graph/badge.svg)](https://codecov.io/gh/ericmiguel/datahood)
+[![Code style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Checked with pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
+
 A friendly toolkit and CLI to transfer and stream data between databases using async pipelines, plus automatic schema inference that generates **TypedDict** and **Pydantic** models from your existing documents.
 
 This tool was born from repeatedly writing throwaway scripts to move data from point A to point B across various client projects. Instead of reinventing the wheel every time, I extracted this into a reusable solution. If it saves you from writing ad-hoc data transfer scripts, it has fulfilled its purpose!
